@@ -1,0 +1,15 @@
+res://Game/Script
+res://Map/lvl1/Scene
+res://Enemy/01Boss/Script
+res://Enemy/01Boss/Scene
+res://Game/Scene
+res://FX/break_torch
+res://Map/all lvl/torch
+res://Map/barrier
+res://Hud/GUI
+res://FX
+res://PlayerTrevor/Script
+res://Enemy/Zombie/Script
+res://Enemy/Zombie/Scene
+res://Map/lvl1/Tiles
+res://PlayerTrevor/Scene

@@ -1,0 +1,8 @@
+res://Game/Scene/Camera.tscn
+res://FX/hitflashshader.tres
+res://Game/Script/camera.gd
+res://Game/Script/CameraManager.gd
+res://Map/lvl1/Scene/boss_room.tscn
+res://Enemy/01Boss/Script/boss_01_mad_forest.gd
+res://Map/lvl1/Scene/item_room.tscn
+res://Map/lvl1/Scene/normal_room1.tscn

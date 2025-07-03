@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://75ectqlbtu7f"]
+
+[ext_resource type="Script" uid="uid://cykkq2okrflw3" path="res://Map/all lvl/torch/torch.gd" id="1_rup07"]
+[ext_resource type="Texture2D" uid="uid://cs48ffafl1ofr" path="res://Map/all lvl/torch/torch.png" id="2_byk6q"]
+[ext_resource type="PackedScene" uid="uid://bhgihmfoljt30" path="res://FX/break_torch/torch_particle.tscn" id="2_sbhnr"]
+[ext_resource type="Texture2D" uid="uid://b40blu80lev78" path="res://FX/shadow.png" id="3_6tjlh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbhnr"]
+atlas = ExtResource("2_byk6q")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tjlh"]
+atlas = ExtResource("2_byk6q")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv8r4"]
+atlas = ExtResource("2_byk6q")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_473p5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbhnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tjlh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uv8r4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbhnr"]
+size = Vector2(14.5, 27)
+
+[node name="torch" type="StaticBody2D" groups=["Breakable"]]
+z_index = 9
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_rup07")
+explosion = ExtResource("2_sbhnr")
+
+[node name="shadow" type="Sprite2D" parent="."]
+position = Vector2(5.68434e-14, 15)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_6tjlh")
+
+[node name="anim_spr" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_473p5")
+frame_progress = 0.424254
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, 2.5)
+shape = SubResource("RectangleShape2D_sbhnr")

@@ -1,0 +1,188 @@
+[gd_scene load_steps=17 format=3 uid="uid://dvieumwj0nmrd"]
+
+[ext_resource type="Texture2D" uid="uid://hspwthuipypj" path="res://Enemy/Zombie/Sprite/zombie.png" id="1_4fn0c"]
+[ext_resource type="Script" uid="uid://ehq0kolh11jp" path="res://Enemy/Zombie/Script/zombie.gd" id="1_juu8q"]
+[ext_resource type="PackedScene" uid="uid://cnk3iq06f5ra0" path="res://FX/Blood/blood_explosion.tscn" id="2_07r2e"]
+[ext_resource type="Texture2D" uid="uid://b40blu80lev78" path="res://FX/shadow.png" id="3_7cc6h"]
+[ext_resource type="Shader" uid="uid://cml34vavo6rym" path="res://FX/hitflashshader.tres" id="3_wj66g"]
+[ext_resource type="PackedScene" uid="uid://ces4suctrspti" path="res://Hud/enemy_healthbar/healthbar.tscn" id="6_suphm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4fn0c"]
+radius = 7.0
+height = 26.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_suphm"]
+resource_local_to_scene = true
+shader = ExtResource("3_wj66g")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_7cc6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_zombie:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_07r2e"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_zombie:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_juu8q"]
+resource_name = "walk"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_zombie:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wj66g"]
+_data = {
+&"RESET": SubResource("Animation_7cc6h"),
+&"spawn": SubResource("Animation_07r2e"),
+&"walk": SubResource("Animation_juu8q")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7cc6h"]
+radius = 13.0
+height = 34.0
+
+[sub_resource type="Animation" id="Animation_h7wy5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_zombie:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d2c8m"]
+resource_name = "hitflash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_zombie:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q4su8"]
+_data = {
+&"RESET": SubResource("Animation_h7wy5"),
+&"hitflash": SubResource("Animation_d2c8m")
+}
+
+[node name="zombie" type="CharacterBody2D" groups=["Enemy"]]
+z_index = 2
+collision_layer = 2
+collision_mask = 20
+motion_mode = 1
+script = ExtResource("1_juu8q")
+blood_explosion = ExtResource("2_07r2e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_4fn0c")
+
+[node name="sprite_zombie" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_suphm")
+texture = ExtResource("1_4fn0c")
+flip_h = true
+hframes = 3
+vframes = 2
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wj66g")
+}
+
+[node name="Shadow" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.705882)
+z_index = -1
+position = Vector2(0, 15)
+scale = Vector2(0.804688, 0.875)
+texture = ExtResource("3_7cc6h")
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CapsuleShape2D_7cc6h")
+
+[node name="hit_flash_animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q4su8")
+}
+
+[node name="DmgNmbrPosition" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Healthbar" parent="." instance=ExtResource("6_suphm")]
+offset_left = -9.0
+offset_top = -22.0
+offset_right = 10.0
+offset_bottom = -20.0

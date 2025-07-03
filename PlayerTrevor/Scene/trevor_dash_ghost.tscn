@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://1estu4y343i3"]
+
+[ext_resource type="Texture2D" uid="uid://co2c027cdt0sx" path="res://PlayerTrevor/Sprites/Trevor Dash Ghost.png" id="1_flmuo"]
+[ext_resource type="Script" uid="uid://cent30gqld0jt" path="res://PlayerTrevor/Script/trevor_dash_ghost.gd" id="2_wcc5b"]
+
+[node name="TrevorDashGhost" type="Sprite2D"]
+modulate = Color(1, 0.576471, 0.458824, 1)
+z_index = 9
+texture = ExtResource("1_flmuo")
+script = ExtResource("2_wcc5b")

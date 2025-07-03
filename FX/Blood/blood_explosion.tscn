@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnk3iq06f5ra0"]
+
+[ext_resource type="Script" uid="uid://cl86rn7gaxm5c" path="res://FX/Blood/blood_explosion.gd" id="1_wan60"]
+
+[sub_resource type="Curve" id="Curve_uo5ne"]
+_data = [Vector2(0.00625001, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.314607), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5llby"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="blood_explosion" type="CPUParticles2D"]
+z_index = 11
+amount = 50
+lifetime = 0.5
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 70.0
+scale_amount_min = 5.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_uo5ne")
+color = Color(0.812003, 0.0728622, 7.70092e-07, 1)
+hue_variation_min = 0.9
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_5llby")
+script = ExtResource("1_wan60")

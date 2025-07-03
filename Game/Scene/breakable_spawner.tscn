@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxj4m0f6pgrqy"]
+
+[ext_resource type="Script" uid="uid://dg7b4f3vj8l6r" path="res://Game/Script/breakable_spawner.gd" id="1_y85t6"]
+[ext_resource type="PackedScene" uid="uid://75ectqlbtu7f" path="res://Map/all lvl/torch/torch.tscn" id="2_n33lr"]
+
+[node name="BreakableSpawner" type="Node2D"]
+script = ExtResource("1_y85t6")
+breakable_scenes = Array[PackedScene]([ExtResource("2_n33lr")])

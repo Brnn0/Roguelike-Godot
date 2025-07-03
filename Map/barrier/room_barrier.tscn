@@ -1,0 +1,161 @@
+[gd_scene load_steps=11 format=3 uid="uid://chfjmnexhb4xn"]
+
+[ext_resource type="Texture2D" uid="uid://cif1cv2sn5cc" path="res://Map/barrier/barrier1.png" id="1_dwjjg"]
+[ext_resource type="Script" uid="uid://bhxj38s1cpiq1" path="res://Map/barrier/room_barrier.gd" id="1_kpwrx"]
+[ext_resource type="Texture2D" uid="uid://jv26nifiy15a" path="res://Map/barrier/open_barrier.png" id="2_0bbx1"]
+[ext_resource type="Texture2D" uid="uid://bbeg0sieiqhfa" path="res://Map/barrier/barrier2.png" id="2_kpwrx"]
+[ext_resource type="Texture2D" uid="uid://d0dce6mxxvfuu" path="res://Map/barrier/barrier3.png" id="3_l5jlf"]
+[ext_resource type="PackedScene" uid="uid://b0ycf1q5tsxft" path="res://FX/barrier_flames/BarrierFlames.tscn" id="5_l5jlf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwjjg"]
+size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_dwjjg"]
+resource_name = "closed"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_dwjjg"), ExtResource("2_kpwrx"), ExtResource("3_l5jlf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("open_spr:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_l5jlf"]
+resource_name = "open"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_dwjjg")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BarrierFlames:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.204571),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("open_spr:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.433333, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5jlf"]
+_data = {
+&"closed": SubResource("Animation_dwjjg"),
+&"open": SubResource("Animation_l5jlf")
+}
+
+[node name="Room Barrier" type="StaticBody2D"]
+z_index = 9
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_kpwrx")
+
+[node name="open_spr" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_0bbx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kpwrx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dwjjg")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l5jlf")
+}
+
+[node name="BarrierFlames" parent="." instance=ExtResource("5_l5jlf")]
+position = Vector2(0, 12)
+amount = 150
+emission_shape = 3
+emission_rect_extents = Vector2(16, 4)
